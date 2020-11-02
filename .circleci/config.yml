@@ -21,7 +21,7 @@ jobs:
           key: yarn-V1-packages-{{ checksum "yarn.lock" }}
       - run: yarn lint && yarn format:check
       - save_cache:
-          key: yarn-V1-packages-{{ checksum "yarn.lock" }}
+          key: yarn-V2-packages-{{ checksum "yarn.lock" }}
           paths:
             - ~/.node_modules
   test:
@@ -33,7 +33,7 @@ jobs:
           key: yarn-V1-packages-{ checksum "yarn.lock" }}
       - run: yarn test:ci
       - save_cache:
-          key: yarn-V1-packages-{{ checksum "yarn.lock" }}
+          key: yarn-V3-packages-{{ checksum "yarn.lock" }}
           paths:
             - ~/.node_modules
 workflows:
