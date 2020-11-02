@@ -6,44 +6,44 @@ jobs:
     steps:
       - checkout # check out the code in the project directory
       - restore_cache:
-          key: yarn-V1-packages-{{ checksum "yarn.lock" }}
+          key: yarn-v1-packages-{{ checksum "yarn.lock" }}
       - run: yarn global add node-gyp && yarn install
       - save_cache:
-          key: yarn-V1-packages-{{ checksum "yarn.lock" }}
+          key: yarn-v1-packages-{{ checksum "yarn.lock" }}
           paths:
-            - ~/.node_modules
+            - ./node_modules
   lint:
     docker:
       - image: "circleci/node:12" # the primary container, where your job's commands are run
     steps:
       - checkout # check out the code in the project directory
       - restore_cache:
-          key: yarn-V2-packages-{{ checksum "yarn.lock" }}
+          key: yarn-v1-packages-{{ checksum "yarn.lock" }}
       - run: yarn lint && yarn format:check
       - save_cache:
-          key: yarn-V2-packages-{{ checksum "yarn.lock" }}
+          key: yarn-v1-packages-{{ checksum "yarn.lock" }}
           paths:
-            - ~/.node_modules
+            - ./node_modules
   test:
     docker:
       - image: "circleci/node:12" # the primary container, where your job's commands are run
     steps:
       - checkout # check out the code in the project directory
       - restore_cache:
-          key: yarn-V3-packages-{{ checksum "yarn.lock" }}
+          key: yarn-v1-packages-{{ checksum "yarn.lock" }}
       - run: yarn test:ci
       - save_cache:
-          key: yarn-V3-packages-{{ checksum "yarn.lock" }}
+          key: yarn-v1-packages-{{ checksum "yarn.lock" }}
           paths:
-            - ~/.node_modules
+            - ./node_modules
 workflows:
   build:
     jobs:
       - build
       - lint:
-         requires:
-          - build
+          requires:
+            - build
       - test:
-         requires:
-          - build
-          - lint
+          requires:
+            - build
+            - lint
