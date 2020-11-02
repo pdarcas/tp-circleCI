@@ -36,6 +36,12 @@ jobs:
           key: yarn-V1-packages-{{ checksum "yarn.lock" }}
           paths:
             - ~/.node_modules
+workflows:
+  build:
+    jobs:
+      -build
 
-
-
+  lint_and_test:
+    jobs:
+      -lint
+      -test
