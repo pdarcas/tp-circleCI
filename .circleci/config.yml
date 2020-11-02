@@ -39,10 +39,10 @@ jobs:
 workflows:
   build:
     jobs:
-      -build
-      -lint:
+      - build
+      - lint:
         requires:
-          -build
-      -test:
+          - build
+      - test:
         requires:
-          -build
+          - build
