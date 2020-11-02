@@ -12,6 +12,18 @@ jobs:
           key: yarn-V1-packages-{{ checksum "yarn.lock" }}
           paths:
             - ~/.node_modules
+  lint:
+    docker:
+      - image: "circleci/node:12" # the primary container, where your job's commands are run
+    steps:
+      - checkout # check out the code in the project directory
+      - restore_cache:
+          key: yarn-V1-packages-{{ checksum "yarn.lock" }}
+      - run: yarn lint
+      - save_cache:
+          key: yarn-V1-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.node_modules
 
 
 
