@@ -12,7 +12,12 @@ jobs:
     steps:
       # Commands are run in a Windows virtual machine environment
       - checkout
-      - run: Write-Host 'Hello, Windows'  
+      - save_cache:
+         paths:
+          - ~/.m2
+          key: npm-v1-dependencies-{{ checksum "yarn.lock" }}
+      - run: yarn global add node-gyp && yarn install
+
 
 
 
