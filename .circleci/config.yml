@@ -1,30 +1,17 @@
-version: 2.1 
-
-commands:
-  restore_cache_cmd:
-    steps:
-      - restore_cache:
-        key: npm-v1-dependencies-{{ checksum "yarn.lock" }}
-  save_cache_cmd:
-    steps:
-      - save_cache:
-        paths:
-          - ~/.cache/yarn
-        key: npm-v1-dependencies-{{ checksum "yarn.lock" }}
-
+version: 2.1
 jobs:
   build:
     docker:
-      image: cimg/node:10.10.1
-
+      - image: "circleci/node:12" # the primary container, where your job's commands are run
     steps:
-
-      - checkout
-      - restore_cache_cmd
+      - checkout # check out the code in the project directory
+      - restore_cache:
+          key: yarn-V1-packages-{{ checksum "yarn.lock" }}
       - run: yarn global add node-gyp && yarn install
-      - save_cache_cmd
-
-
+      - save_cache:
+          key: yarn-V1-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.node_modules
 
 
 
