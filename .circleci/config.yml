@@ -60,6 +60,21 @@ jobs:
           key: yarn-v-packages-{{ checksum "yarn.lock" }}
           paths:
             - ./node_modules
+  artifacts:
+    docker:
+      - image: "circleci/node:12" # the primary container, where your job's commands are run
+    steps:
+      - checkout # check out the code in the project directory
+      - restore_cache:
+          key: yarn-v-packages-{{ checksum "yarn.lock" }}
+      - run: 
+          command: yarn doc:build
+      - store_artifacts:
+          path: /doc-server
+      - save_cache:
+          key: yarn-v-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ./node_modules
     
 workflows:
   build:
@@ -72,6 +87,9 @@ workflows:
           requires:
             - build
       - test_e2e:
+          requires:
+            - build
+      - artifacts:
           requires:
             - build
 
