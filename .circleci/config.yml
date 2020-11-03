@@ -44,18 +44,18 @@ jobs:
           POSTGRES_DB: circleci_tp
           POSTGRES_PASSWORD: pdarcas
       - image: "circleci/node:12" # the primary container, where your job's commands are run
+        environement:
+          DATABASE_URL: postgres://pdarcas:pdarcas@localhost:5432/circleci_tp
+          JWT_SECRET: answer is 42
+          API_PORT: 3000
+          API_HOST: localhost
+          API_PROTOCOL: http
     steps:
       - checkout # check out the code in the project directory
       - restore_cache:
           key: yarn-v1-packages-{{ checksum "yarn.lock" }}
       - run: 
           command: yarn test:e2e
-          environement:
-              DATABASE_URL: postgres://pdarcas:pdarcas@localhost:5432/circleci_tp
-              JWT_SECRET: answer is 42
-              API_PORT: 3000
-              API_HOST: localhost
-              API_PROTOCOL: http
       - save_cache:
           key: yarn-v1-packages-{{ checksum "yarn.lock" }}
           paths:
