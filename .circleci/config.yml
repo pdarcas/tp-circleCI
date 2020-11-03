@@ -41,7 +41,7 @@ jobs:
       - image: "circleci/node:12" # the primary container, where your job's commands are run
         environment:
           DATABASE_URL: postgres://psqluer:psqlpassword@localhost:5432/psdb
-          JWT_SECRET: answer is 42
+          JWT_SECRET: Answer is 42
           API_PORT: 3000
           API_HOST: localhost
           API_PROTOCOL: http
