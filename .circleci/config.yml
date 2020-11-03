@@ -71,10 +71,7 @@ workflows:
       - test:
           requires:
             - build
-      - database:
-          requires:
-            - build
       - test_e2e:
           requires:
-            - database
+            - build
 
