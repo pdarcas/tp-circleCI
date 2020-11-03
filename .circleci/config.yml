@@ -36,23 +36,13 @@ jobs:
           key: yarn-v1-packages-{{ checksum "yarn.lock" }}
           paths:
             - ./node_modules
-  database:
+  test_e2e:
     docker:
       - image: circleci/postgres:9.6.2-alpine
         environment:
           POSTGRES_USER: pdarcas
           POSTGRES_DB: circleci_tp
           POSTGRES_PASSWORD: pdarcas
-    steps:
-      - checkout # check out the code in the project directory
-      - restore_cache:
-          key: yarn-v1-packages-{{ checksum "yarn.lock" }}
-      - save_cache:
-          key: yarn-v1-packages-{{ checksum "yarn.lock" }}
-          paths:
-            - ./node_modules
-  test_e2e:
-    docker:
       - image: "circleci/node:12" # the primary container, where your job's commands are run
     steps:
       - checkout # check out the code in the project directory
