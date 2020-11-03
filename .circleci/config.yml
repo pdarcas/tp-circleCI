@@ -47,7 +47,6 @@ jobs:
       - checkout # check out the code in the project directory
       - restore_cache:
           key: yarn-v1-packages-{{ checksum "yarn.lock" }}
-      - run: yarn test:ci
       - save_cache:
           key: yarn-v1-packages-{{ checksum "yarn.lock" }}
           paths:
