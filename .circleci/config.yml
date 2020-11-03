@@ -52,7 +52,7 @@ jobs:
           key: yarn-v1-packages-{{ checksum "yarn.lock" }}
           paths:
             - ./node_modules
-            
+
 workflows:
   build:
     jobs:
@@ -63,4 +63,3 @@ workflows:
       - test:
           requires:
             - build
-            - lint
