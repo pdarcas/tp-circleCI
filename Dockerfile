@@ -8,4 +8,6 @@ EXPOSE 3000
 
 CMD ["yarn","start"]
 
+#dockerhub link : https://hub.docker.com/repository/docker/pdarcas/my-awesome-ci-expr
+
 
